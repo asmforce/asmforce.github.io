@@ -1,187 +1,90 @@
 <!DOCTYPE html>
+
 <html>
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="googlebot" content="noindex, nofollow">
+	<head>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('.draggable').draggable({
+				  revert: 'invalid',
+				  distance: 20,
+				  cursor: 'move',
+				  iframeFix: true
+				});
 
-  
-  
+				$('.droppable').droppable({
+				  drop: function(event, ui) {
+				    $(this).append(ui.draggable);
+				    ui.draggable.css('left', '');
+				    ui.draggable.css('top', '');
+				  }
+				});
 
-  
-  
-  
+				/*
+				// Then bind listeners for events, and trigger them on parent document
+				$doc.on({
+				    mousemove: function(e) {
+				        $(document).trigger(e);
+				    },
+				    mousedown: function (e) {
+				        $(document).trigger(e);
+				    },
+				    mouseup: function (e) {
+				        $(document).trigger(e);
+				    }
+				});
+				*/
+			});
+		</script>
+		<style>
+			* {
+			  box-sizing: border-box;
+			}
 
-  
+			.droppable {
+			  display: inline-block;
+			  border: solid 3px black;
+			  border-radius: 10px;
+			  width: 75px;
+			  height: 75px;
+			  padding: 5px;
+			  background-color: yellow;
+			  margin: 20px;
+			}
 
-  <script type="text/javascript" src="/js/lib/dummy.js"></script>
+			.draggable {
+			  display: inline-block;
+			  border: solid 3px black;
+			  border-radius: 10px;
+			  width: 75px;
+			  height: 75px;
+			  background-color: lightblue;
+			}
 
-  
+			.droppable > .draggable {
+			  display: block;
+			  width: 100%;
+			  height: 100%;
+			}
 
-  
+			#template {
+			  display: inline-block;
+			  background-color: lightblue;
+			  font-size: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="template">
+			<div class="droppable"></div>
+			<div class="droppable"></div>
+			<div class="droppable"></div>
+			<div class="droppable"></div>
+			<div class="droppable"></div>
+			<div class="droppable"></div>
+		</div>
 
-  
-
-  
-    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
-  
-
-  
-    
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    
-  
-    
-      <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    
-  
-
-  <style type="text/css">
-    iframe {
-  border: solid 1px orange;
-  width: 100%;
-  height: 300px;
-}
-
-.draggable {
-  display: inline-block;
-  border: solid 3px black;
-  border-radius: 10px;
-  width: 75px;
-  height: 75px;
-  background-color: lightblue;
-}
-
-  </style>
-
-  <title></title>
-
-  
-    
-
-
-
-
-<script type="text/javascript">//<![CDATA[
-window.onload=function(){
-var $doc = $('#draggables-frame').contents();
-
-$doc.find('body')
-  .html($('#draggables').html());
-
-var $style = $('<style></style>');
-$style.html('* { \
-  box-sizing: border-box;\
-} \
-\
-.droppable { \
-  display: inline-block; \
-  border: solid 3px black; \
-  border-radius: 10px; \
-  width: 75px; \
-  height: 75px; \
-  padding: 5px; \
-  background-color: yellow; \
-  margin: 20px; \
-} \
-\
-.draggable { \
-  display: inline-block; \
-  border: solid 3px black; \
-  border-radius: 10px; \
-  width: 75px; \
-  height: 75px; \
-  background-color: lightblue; \
-} \
-\
-.droppable > .draggable { \
-  display: block; \
-  width: 100%; \
-  height: 100%; \
-} \
-\
-#template { \
-  display: inline-block; \
-  background-color: lightblue; \
-  font-size: 0; \
-}');
-
-$doc.find('head')
-  .append($style);
-
-$('.draggable').draggable({
-  revert: 'invalid',
-  distance: 20,
-  cursor: 'move',
-  iframeFix: true
-});
-
-$doc.find('.droppable').droppable({
-  drop: function(event, ui) {
-    $(this).append(ui.draggable);
-    ui.draggable.css('left', '');
-    ui.draggable.css('top', '');
-    ui.draggable.draggable('option', 'containment', $doc.find('#template'));
-    /*
-    setTimeout(function() {
-      ui.draggable.draggable('destroy');
-      ui.draggable.draggable({
-        revert: 'invalid',
-        distance: 20,
-        cursor: 'move'
-      });
-    }, 100);
-    */
-  }
-});
-
-
-
-// Then bind listeners for events, and trigger them on parent document
-$doc.on({
-    mousemove: function(e) {
-        $(document).trigger(e);
-    },
-    mousedown: function (e) {
-        $(document).trigger(e);
-    },
-    mouseup: function (e) {
-        $(document).trigger(e);
-    }
-});
-
-}//]]> 
-
-</script>
-
-  
-</head>
-
-<body>
-  <iframe id="draggables-frame"></iframe>
-
-<script id="draggables" type="text/html">
-  <div id="template">
-    <div class="droppable"></div>
-    <div class="droppable"></div>
-    <div class="droppable"></div>
-    <div class="droppable"></div>
-    <div class="droppable"></div>
-    <div class="droppable"></div>
-  </div>
-</script>
-
-<div class="draggable ui-draggable ui-draggable-handle" style="position: relative;"></div>
-
-<script>
-  // tell the embed parent frame the height of the content
-  if (window.parent && window.parent.parent){
-    window.parent.parent.postMessage(["resultsFrame", {
-      height: document.body.getBoundingClientRect().height,
-      slug: "None"
-    }], "*")
-  }
-</script>
-
-</body>
+		<div class="draggable"></div>
+	</body>
 </html>
