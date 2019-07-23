@@ -6,3 +6,13 @@ firebase.initializeApp({messagingSenderId: 'blockwrk-9da2b'});
 firebase.messaging().setBackgroundMessageHandler((payload) => {
   console.log('Message received. ', payload);
 });
+
+messaging.getToken().then((newToken) => {
+  console.log('New token: ', newToken);
+});
+
+messaging.onTokenRefresh(() => {
+  messaging.getToken().then((newToken) => {
+    console.log('New token: ', newToken);
+  });
+});
